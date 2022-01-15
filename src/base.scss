@@ -1,0 +1,15 @@
+@use 'w3.css';
+
+#result {
+  > ins {
+    background-color: #cfc !important;
+  }
+
+  > del {
+    background-color: #fcc !important;
+  }
+}
+
+main {
+  @extend .w3-mobile;
+}
