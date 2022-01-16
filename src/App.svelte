@@ -6,6 +6,7 @@
   let text: string = "";
   let result: HTMLDivElement;
   let target = "hello world";
+  let errCount = 0;
   const currentUUID = uuidv4();
 
   const dmp = new diff_match_path();
@@ -15,14 +16,15 @@
     if (text !== undefined && result !== undefined) {
       lastChange = Date.now();
 
-      let errCount = 0;
+      errCount = 0;
       result.textContent = "";
       dmp.diff_main(text, target).forEach((part: [number, string]) => {
         const elem = document.createElement(
           part[0] === -1 ? "del" : part[0] == 1 ? "ins" : "span"
         );
         elem.textContent = part[1];
-        if (part[0] !== 0) {
+        if (part[0] === -1) {
+	console.log(part);
           errCount += part[1].length;
         }
         result.appendChild(elem);
@@ -62,7 +64,7 @@
         1000 *
         60}
     </p>
-    <p>Error rate: {(text.length / (Date.now() - elapsed)) * 1000 * 60}%</p>
+    <p>Error rate: {(errCount / text.length) * 100}%</p>
   </aside>
   <input type="button" value="Reset" on:click={reset} />
   <aside>
@@ -72,4 +74,19 @@
       <textarea id="target" bind:value={target} />
     </details>
   </aside>
+  {#if 'serial' in navigator}
+    <section id="serial">
+      <h2>Serial</h2>
+      <select name="port" id="port">
+        {#await navigator.serial.getPorts()}
+	{:then ports}
+          {#each ports as port}
+            <option value={port.path}>{port.path}</option>
+          {/each}
+	{:catch error}
+	  <span class="error">{error.message}</span>
+        {/await}
+      </select>
+    </section>
+  {/if}
 </main>
