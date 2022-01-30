@@ -2,14 +2,14 @@
   import "./base.scss";
   import { v4 as uuidv4 } from "uuid";
   import diff_match_path from "diff-match-patch";
-  import Serial from "./Serial.svelte";
+  import Data from "./Data.svelte";
 
   let text: string = "";
   let textarea: HTMLTextAreaElement;
   let result: HTMLDivElement;
   let target = "hello world";
   let errCount = 0;
-  const currentUUID = uuidv4();
+  let currentUUID: string = uuidv4();
 
   const dmp = new diff_match_path();
   let elapsed: number = Date.now();
@@ -45,6 +45,8 @@
     lastChange = Date.now();
     elapsed = Date.now();
     first = true;
+    errCount = 0;
+    currentUUID = uuidv4();
   }
 </script>
 
@@ -55,36 +57,33 @@
 </svelte:head>
 
 <main>
-  <textarea bind:this={textarea} bind:value={text} />
-  <div id="result" bind:this={result} />
-  <aside>
-    <p>Session ID: {currentUUID}</p>
-    First: {first}
-    <p>
-      Last change: {Date.now() - lastChange} ms
-    </p>
-    <p>
-      Elapsed: {lastChange - elapsed} ms
-    </p>
-    <p>
-      characters/min: {(text.length / (Date.now() - elapsed)) * 1000 * 60}
-    </p>
-    <p>
-      words/min {(text.trim().split(/\s+/).length / (Date.now() - elapsed)) *
-        1000 *
-        60}
-    </p>
-    <p>Error rate: {(errCount / text.length) * 100}%</p>
-  </aside>
-  <input type="button" value="Reset" on:click={reset} />
-  <aside>
-    <details>
-      <summary>Settings</summary>
-      <label for="target">Target:</label>
-      <textarea id="target" bind:value={target} />
-    </details>
-  </aside>
-  {#if 'serial' in navigator}
-    <Serial />
-  {/if}
+  <div class="w3-container">
+    <div class="w3-half">
+      <section>
+      <h2>Input</h2>
+        <textarea bind:this={textarea} bind:value={text} />
+        <div id="result" bind:this={result} />
+      </section>
+      <section>
+        <h2>Controls</h2>
+        <input type="button" value="Reset" on:click={reset} />
+      </section>
+      <section>
+        <h2>Settings</h2>
+        <label for="target">Target:</label>
+        <textarea id="target" bind:value={target} />
+      </section>
+    </div>
+    <div class="w3-half">
+      <Data
+        bind:first
+        bind:lastChange
+        bind:elapsed
+        bind:text
+        bind:target
+        bind:errCount
+        bind:currentUUID
+      />
+    </div>
+  </div>
 </main>

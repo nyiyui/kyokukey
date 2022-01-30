@@ -17,3 +17,10 @@
 main {
   @extend .w3-mobile;
 }
+
+section {
+  @extend .w3-round;
+  @extend .w3-margin;
+  @extend .w3-padding;
+  @extend .w3-border;
+}
