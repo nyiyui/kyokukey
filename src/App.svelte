@@ -14,8 +14,11 @@
   const dmp = new diff_match_path();
   let elapsed: number = Date.now();
   let lastChange: number = Date.now();
+  let first: boolean = true;
   $: {
     if (text !== undefined && result !== undefined) {
+      if (first) elapsed = Date.now();
+      first = false;
       lastChange = Date.now();
 
       errCount = 0;
@@ -39,6 +42,7 @@
     textarea.focus();
     lastChange = Date.now();
     elapsed = Date.now();
+    first = true;
   }
 </script>
 
