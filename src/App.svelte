@@ -17,8 +17,10 @@
   let first: boolean = true;
   $: {
     if (text !== undefined && result !== undefined) {
-      if (first) elapsed = Date.now();
-      first = false;
+      if (first && text.length !== 0) {
+        elapsed = Date.now();
+        first = false;
+      }
       lastChange = Date.now();
 
       errCount = 0;
@@ -57,6 +59,7 @@
   <div id="result" bind:this={result} />
   <aside>
     <p>Session ID: {currentUUID}</p>
+    First: {first}
     <p>
       Last change: {Date.now() - lastChange} ms
     </p>
