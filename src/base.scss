@@ -1,8 +1,12 @@
 @use 'w3.css';
 
 #result {
-  > ins {
+  > :not(ins):not(del) {
     background-color: #cfc !important;
+  }
+
+  > ins {
+    background-color: #ffc !important;
   }
 
   > del {
