@@ -57,7 +57,7 @@
       Last change: {Date.now() - lastChange} ms
     </p>
     <p>
-      Elapsed: {Date.now() - elapsed} ms
+      Elapsed: {lastChange - elapsed} ms
     </p>
     <p>
       characters/min: {(text.length / (Date.now() - elapsed)) * 1000 * 60}
