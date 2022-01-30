@@ -2,8 +2,10 @@
   import "./base.scss";
   import { v4 as uuidv4 } from "uuid";
   import diff_match_path from "diff-match-patch";
+  import Serial from "./Serial.svelte";
 
   let text: string = "";
+  let textarea: HTMLTextAreaElement;
   let result: HTMLDivElement;
   let target = "hello world";
   let errCount = 0;
@@ -34,6 +36,7 @@
 
   function reset() {
     text = "";
+    textarea.focus();
     lastChange = Date.now();
     elapsed = Date.now();
   }
@@ -46,7 +49,7 @@
 </svelte:head>
 
 <main>
-  <textarea bind:value={text} />
+  <textarea bind:this={textarea} bind:value={text} />
   <div id="result" bind:this={result} />
   <aside>
     <p>Session ID: {currentUUID}</p>
@@ -75,18 +78,6 @@
     </details>
   </aside>
   {#if 'serial' in navigator}
-    <section id="serial">
-      <h2>Serial</h2>
-      <select name="port" id="port">
-        {#await navigator.serial.getPorts()}
-	{:then ports}
-          {#each ports as port}
-            <option value={port.path}>{port.path}</option>
-          {/each}
-	{:catch error}
-	  <span class="error">{error.message}</span>
-        {/await}
-      </select>
-    </section>
+    <Serial />
   {/if}
 </main>
