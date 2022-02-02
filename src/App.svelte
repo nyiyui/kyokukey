@@ -46,6 +46,9 @@
         }
         result.appendChild(elem);
       });
+      if (nextKey === ' ') nextKey = 'SPACE';
+      if (nextKey === '\n') nextKey = 'ENTER';
+      if (nextKey === '.') nextKey = 'PERIOD';
       hintFrame.src = `https://nyiyui.ca/render#key-${nextKey.toUpperCase()}`;
     }
   }
@@ -82,7 +85,7 @@
     <section>
       <h2>Hint</h2>
       Next key: {nextKey}
-      <iframe bind:this={hintFrame} />
+      <iframe title="hint" bind:this={hintFrame} />
     </section>
     <div class="w3-half">
       <section>
