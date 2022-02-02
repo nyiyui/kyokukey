@@ -42,7 +42,7 @@
   }
 
   $: {
-    if (text === target) {
+    if (text === target || text.length === target.length) {
       send();
     }
   }
