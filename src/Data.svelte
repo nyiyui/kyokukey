@@ -1,5 +1,6 @@
 <script lang="ts">
   export let first: boolean;
+  export let start: number;
   export let lastChange: number;
   export let elapsed: number;
   export let text: string;
@@ -10,6 +11,7 @@
   export let sessionName: string;
   let data = {
     first,
+    start,
     lastChange,
     elapsed,
     text,

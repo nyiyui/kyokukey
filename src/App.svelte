@@ -13,6 +13,7 @@
   let errCount = 0;
   let currentUUID: string = uuidv4();
   let sessionName: string = "";
+  let start = Date.now();
 
   $: target = phrases[targetIndex].toLowerCase();
 
@@ -56,6 +57,7 @@
   function reset() {
     text = "";
     textarea.focus();
+    start = Date.now();
     lastChange = Date.now();
     elapsed = Date.now();
     first = true;
@@ -100,6 +102,7 @@
     <div class="w3-half">
       <Data
         bind:first
+        bind:start
         bind:lastChange
         bind:elapsed
         bind:text
