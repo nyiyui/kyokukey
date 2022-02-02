@@ -14,6 +14,19 @@
   }
 }
 
+span[role="status"].sent-status {
+  @extend .w3-tag;
+  @extend .w3-round;
+  
+  &.sent {
+    background-color: #7c7 !important;
+  }
+
+  &:not(.sent) {
+    background-color: #c77 !important;
+  }
+}
+
 main {
   @extend .w3-mobile;
 }

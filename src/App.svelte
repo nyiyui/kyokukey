@@ -68,12 +68,12 @@
     Kyokukey Test
   </h1>
   <div class="w3-container">
-    <div class="w3-half">
-      <section>
+    <section>
       <h2>Input</h2>
-        <textarea bind:this={textarea} bind:value={text} />
-        <div id="result" bind:this={result} />
-      </section>
+      <textarea bind:this={textarea} bind:value={text} />
+      <div id="result" bind:this={result} />
+    </section>
+    <div class="w3-half">
       <section>
         <h2>Settings</h2>
         <input type="button" value="Reset" on:click={reset} />

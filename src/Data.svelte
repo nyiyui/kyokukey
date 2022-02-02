@@ -20,6 +20,8 @@
     sessionName,
   };
 
+  let sent = false;
+
   async function send() {
     const name = `${data.currentUUID}_${data.targetIndex}`;
     let res = await fetch(`https://kiki.nyiyui.ca/submit.php?name=${name}`, {
@@ -36,6 +38,7 @@
     if (!res.ok) {
       console.error(res.status);
     }
+    sent = true;
   }
 
   $: {
@@ -47,6 +50,11 @@
 
 <section>
   <h2>Data</h2>
+  {#if sent}
+  <span role="status" class="sent-status sent">Sent</span>
+  {:else}
+  <span role="status" class="sent-status">Not Sent</span>
+  {/if}
   <p>Session ID: <code>{currentUUID}</code></p>
   <p>
     First: {first}
