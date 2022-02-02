@@ -21,6 +21,18 @@
     currentUUID,
     sessionName,
   };
+  $: data = {
+    first,
+    start,
+    lastChange,
+    elapsed,
+    text,
+    target,
+    targetIndex,
+    errCount,
+    currentUUID,
+    sessionName,
+  };
 
   let sent = false;
 
