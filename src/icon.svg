@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:cc="http://web.resource.org/cc/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.0"
+  viewBox="0 0 50 50"
+>
+  <defs>
+    <linearGradient id="grad1" gradientTransform="rotate(45)">
+      <stop offset="0%" stop-color="#cfc" />
+      <stop offset="100%" stop-color="#fcc" />
+    </linearGradient>
+    <linearGradient id="grad2" gradientTransform="rotate(-45)">
+      <stop offset="0%" stop-color="#cfc7" />
+      <stop offset="100%" stop-color="#fcc7" />
+    </linearGradient>
+  </defs>
+  <circle cx="25" cy="25" r="15" fill="url(#grad1)" />
+  <path
+    d="M10 25 a15 15 0 0 1 15 -15 L25 25"
+    fill="url(#grad2)"
+  />
+  <path
+    d="M5 25 a20 20 0 0 1 20 -20"
+    fill="none"
+    stroke="#fcc"
+    stroke-width="2"
+  />
+  <path
+    d="M40 25 a15 15 0 0 1 -15 15 L25 25"
+    fill="url(#grad2)"
+  />
+  <path
+    d="M45 25 a20 20 0 0 1 -20 20"
+    fill="none"
+    stroke="#cfc"
+    stroke-width="2"
+  />
+</svg>

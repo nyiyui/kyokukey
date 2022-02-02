@@ -55,12 +55,18 @@
 </script>
 
 <svelte:head>
-  <title>Kyokukey Testing</title>
+  <title>Kyokukey Test</title>
   <meta name="robots" content="noindex, nofollow" />
+  <link rel="preload" href="favicon.svg" as="image" />
+  <link rel="icon" href="favicon.svg" />
   <html lang="en" />
 </svelte:head>
 
 <main>
+  <h1 style="font-size: 1.5em;">
+    <img src="favicon.svg" alt="Icon" height="30px" />
+    Kyokukey Test
+  </h1>
   <div class="w3-container">
     <div class="w3-half">
       <section>
@@ -69,11 +75,8 @@
         <div id="result" bind:this={result} />
       </section>
       <section>
-        <h2>Controls</h2>
-        <input type="button" value="Reset" on:click={reset} />
-      </section>
-      <section>
         <h2>Settings</h2>
+        <input type="button" value="Reset" on:click={reset} />
         <label for="target">Phrase Number:</label>
         <input type="number" id="target" bind:value={targetIndex} />
         <label for="session-name">Session Name:</label>
