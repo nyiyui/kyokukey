@@ -32,6 +32,12 @@
       console.error(res.status);
     }
   }
+
+  $: {
+    if (text === target) {
+      send();
+    }
+  }
 </script>
 
 <section>

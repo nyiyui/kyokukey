@@ -89,5 +89,6 @@
         bind:currentUUID
       />
     </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxM1Y2qVInIEgs7LdQPoBoxOA2W2NU70DtKwYAa9fRMLmdvw/viewform">Survey</a>
   </div>
 </main>
