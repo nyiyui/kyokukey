@@ -13,14 +13,15 @@
   let errCount = 0;
   let currentUUID: string = uuidv4();
   let sessionName: string = "";
-  let start = Date.now();
 
   $: target = phrases[targetIndex].toLowerCase();
 
   let hintFrame: HTMLIFrameElement;
   const dmp = new diff_match_path();
-  let elapsed: number = Date.now();
-  let lastChange: number = Date.now();
+  const now = Date.now();
+  let start = now;
+  let elapsed = now;
+  let lastChange = now;
   let first: boolean = true;
   let nextKey: string;
   $: {
@@ -81,7 +82,7 @@
   <div class="w3-container">
     <section>
       <h2>Input</h2>
-      <textarea bind:this={textarea} bind:value={text} />
+      <textarea id="input" bind:this={textarea} bind:value={text} />
       <div id="result" bind:this={result} />
     </section>
     <section>

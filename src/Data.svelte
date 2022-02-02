@@ -34,25 +34,43 @@
     sessionName,
   };
 
-  let sent = false;
+  enum Status {
+    PENDING,
+    SENT,
+    SENDING,
+    ERROR,
+  }
+
+  let status: Status = Status.PENDING;
 
   async function send() {
-    const name = `${data.currentUUID}_${data.targetIndex}`;
-    let res = await fetch(`https://kiki.nyiyui.ca/submit.php?name=${name}`, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...data,
-        timestamp: new Date().toISOString(),
-      }),
-    });
-    if (!res.ok) {
-      console.error(res.status);
+    status = Status.SENDING;
+    const controller = new AbortController();
+    const timeout = 5000;
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+    const name = `${currentUUID}_${targetIndex}`;
+    try {
+      const res = await fetch(`https://kiki.nyiyui.ca/submit.php?name=${name}`, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          timestamp: new Date().toISOString(),
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      if (res.status !== 200 && res.status !== 0) {
+        throw new Error(`${res.status} ${res.statusText} ${res.body}`);
+      }
+      status = Status.SENT;
+    } catch (err) {
+      status = Status.ERROR;
+      console.log(`error while sending data to kiki: ${err}`);
     }
-    sent = true;
   }
 
   $: {
@@ -64,21 +82,34 @@
 
 <section>
   <h2>Data</h2>
-  <input type="button" value="Send" on:click={send} />
-  {#if sent}
-  <span role="status" class="sent-status sent">Sent</span>
-  {:else}
-  <span role="status" class="sent-status">Not Sent</span>
-  {/if}
-  <p>Session ID: <code>{currentUUID}</code></p>
   <p>
-    First: {first}
+    Status:
+    <!-- TODO: fix this bodge soon -->
+    {#if status == Status.PENDING}
+    <span role="status" class="sent-status pending">waiting for results…</span>
+    {:else if status == Status.SENDING}
+    <span role="status" class="sent-status sending">sending…</span>
+    {:else if status == Status.SENT}
+    <span role="status" class="sent-status sent">sent.</span>
+    {:else if status == Status.ERROR}
+    <span role="status" class="sent-status error">error!</span>
+    {/if}
+    (or,
+    <input type="button" value="manually send current data" on:click={send} />
+    )
   </p>
   <p>
-    Last change: {Date.now() - lastChange} ms
+    Elapsed (since last key press):
+    <strong class="time">
+      {(lastChange - elapsed)/1000} s
+    </strong>
+  </p>
+  <p>session ID: <code>{currentUUID}</code></p>
+  <p>
+    last change: {Date.now() - lastChange} ms
   </p>
   <p>
-    Elapsed: {lastChange - elapsed} ms
+    elapsed: {lastChange - elapsed} ms
   </p>
   <p>
     characters/min: {(text.length / (Date.now() - elapsed)) * 1000 * 60}
@@ -89,8 +120,8 @@
       60}
   </p>
   <p>Error rate: {(errCount / text.length) * 100}%</p>
-  <p>
-    Structured: 
+  <details>
+    <summary>JSON</summary>
     <code>{JSON.stringify(data, null, 2)}</code>
-  </p>
+  </details>
 </section>

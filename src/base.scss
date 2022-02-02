@@ -1,6 +1,13 @@
 @use 'w3.css';
 
+textarea#input {
+  width: 100%;
+  font-size: 2em;
+}
+
 #result {
+  font-size: 2em;
+
   > :not(ins):not(del) {
     background-color: #cfc !important;
   }
@@ -17,12 +24,20 @@
 span[role="status"].sent-status {
   @extend .w3-tag;
   @extend .w3-round;
+
+  &.pending {
+    background-color: #777 !important;
+  }
+
+  &.sending {
+    background-color: #c70 !important;
+  }
   
   &.sent {
     background-color: #7c7 !important;
   }
 
-  &:not(.sent) {
+  &.error {
     background-color: #c77 !important;
   }
 }
@@ -41,4 +56,8 @@ section {
 iframe {
   width: 100%;
   border: none;
+}
+
+strong.time {
+  font-size: 2em;
 }
