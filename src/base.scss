@@ -37,3 +37,8 @@ section {
   @extend .w3-padding;
   @extend .w3-border;
 }
+
+iframe {
+  width: 100%;
+  border: none;
+}

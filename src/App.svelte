@@ -16,10 +16,12 @@
 
   $: target = phrases[targetIndex].toLowerCase();
 
+  let hintFrame: HTMLIFrameElement;
   const dmp = new diff_match_path();
   let elapsed: number = Date.now();
   let lastChange: number = Date.now();
   let first: boolean = true;
+  let nextKey: string;
   $: {
     if (text !== undefined && result !== undefined) {
       if (first && text.length !== 0) {
@@ -39,8 +41,12 @@
 	console.log(part);
           errCount += part[1].length;
         }
+        if (part[0] === 1) {
+          nextKey = part[1].charAt(0);
+        }
         result.appendChild(elem);
       });
+      hintFrame.src = `https://nyiyui.ca/render#key-${nextKey.toUpperCase()}`;
     }
   }
 
@@ -72,6 +78,11 @@
       <h2>Input</h2>
       <textarea bind:this={textarea} bind:value={text} />
       <div id="result" bind:this={result} />
+    </section>
+    <section>
+      <h2>Hint</h2>
+      Next key: {nextKey}
+      <iframe bind:this={hintFrame} />
     </section>
     <div class="w3-half">
       <section>
