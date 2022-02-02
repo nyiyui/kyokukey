@@ -7,6 +7,7 @@
   export let targetIndex: number;
   export let errCount: number;
   export let currentUUID: string;
+  export let sessionName: string;
   let data = {
     first,
     lastChange,
@@ -16,6 +17,7 @@
     targetIndex,
     errCount,
     currentUUID,
+    sessionName,
   };
 
   async function send() {
@@ -26,7 +28,10 @@
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...data,
+        timestamp: new Date().toISOString(),
+      }),
     });
     if (!res.ok) {
       console.error(res.status);

@@ -12,6 +12,7 @@
   let target = phrases[0].toLowerCase();
   let errCount = 0;
   let currentUUID: string = uuidv4();
+  let sessionName: string = "";
 
   $: target = phrases[targetIndex].toLowerCase();
 
@@ -75,6 +76,8 @@
         <h2>Settings</h2>
         <label for="target">Phrase Number:</label>
         <input type="number" id="target" bind:value={targetIndex} />
+        <label for="session-name">Session Name:</label>
+        <input type="text" id="session-name" bind:value={sessionName} />
       </section>
     </div>
     <div class="w3-half">
@@ -87,6 +90,7 @@
         bind:targetIndex
         bind:errCount
         bind:currentUUID
+        bind:sessionName
       />
     </div>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxM1Y2qVInIEgs7LdQPoBoxOA2W2NU70DtKwYAa9fRMLmdvw/viewform">Survey</a>
