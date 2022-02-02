@@ -4,8 +4,34 @@
   export let elapsed: number;
   export let text: string;
   export let target: string;
+  export let targetIndex: number;
   export let errCount: number;
   export let currentUUID: string;
+  let data = {
+    first,
+    lastChange,
+    elapsed,
+    text,
+    target,
+    targetIndex,
+    errCount,
+    currentUUID,
+  };
+
+  async function send() {
+    const name = `${data.currentUUID}_${data.targetIndex}`;
+    let res = await fetch(`https://kiki.nyiyui.ca/submit.php?name=${name}`, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      console.error(res.status);
+    }
+  }
 </script>
 
 <section>
@@ -31,16 +57,7 @@
   <p>Error rate: {(errCount / text.length) * 100}%</p>
   <p>
     Structured: 
-    <code>{JSON.stringify(
-      {
-        first,
-        lastChange,
-        elapsed,
-        text,
-        target,
-        errCount,
-        currentUUID,
-      },
-      )}</code>
+    <code>{JSON.stringify(data, null, 2)}</code>
   </p>
+  <input type="button" value="Send" on:click={send} />
 </section>

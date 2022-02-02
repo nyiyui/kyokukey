@@ -1,15 +1,19 @@
 <script lang="ts">
   import "./base.scss";
   import { v4 as uuidv4 } from "uuid";
+  import { phrases } from "./hardcoded";
   import diff_match_path from "diff-match-patch";
   import Data from "./Data.svelte";
 
   let text: string = "";
   let textarea: HTMLTextAreaElement;
   let result: HTMLDivElement;
-  let target = "hello world";
+  let targetIndex = 0;
+  let target = phrases[0].toLowerCase();
   let errCount = 0;
   let currentUUID: string = uuidv4();
+
+  $: target = phrases[targetIndex].toLowerCase();
 
   const dmp = new diff_match_path();
   let elapsed: number = Date.now();
@@ -46,7 +50,6 @@
     elapsed = Date.now();
     first = true;
     errCount = 0;
-    currentUUID = uuidv4();
   }
 </script>
 
@@ -70,8 +73,8 @@
       </section>
       <section>
         <h2>Settings</h2>
-        <label for="target">Target:</label>
-        <textarea id="target" bind:value={target} />
+        <label for="target">Phrase Number:</label>
+        <input type="number" id="target" bind:value={targetIndex} />
       </section>
     </div>
     <div class="w3-half">
@@ -81,6 +84,7 @@
         bind:elapsed
         bind:text
         bind:target
+        bind:targetIndex
         bind:errCount
         bind:currentUUID
       />
