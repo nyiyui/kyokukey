@@ -50,6 +50,7 @@
 
 <section>
   <h2>Data</h2>
+  <input type="button" value="Send" on:click={send} />
   {#if sent}
   <span role="status" class="sent-status sent">Sent</span>
   {:else}
@@ -78,5 +79,4 @@
     Structured: 
     <code>{JSON.stringify(data, null, 2)}</code>
   </p>
-  <input type="button" value="Send" on:click={send} />
 </section>
