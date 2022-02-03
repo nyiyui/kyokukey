@@ -34,6 +34,8 @@
     sessionName,
   };
 
+  let sentText = "";
+
   enum Status {
     PENDING,
     SENT,
@@ -67,6 +69,7 @@
         throw new Error(`${res.status} ${res.statusText} ${res.body}`);
       }
       status = Status.SENT;
+      sentText = text;
     } catch (err) {
       status = Status.ERROR;
       console.log(`error while sending data to kiki: ${err}`);
@@ -77,6 +80,10 @@
     if (text === target || text.length === target.length) {
       send();
     }
+  }
+
+  $: if (sentText !== text) {
+    status = Status.PENDING;
   }
 </script>
 
