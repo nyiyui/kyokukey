@@ -51,7 +51,8 @@
       if (nextKey === ' ') nextKey = 'SPACE';
       if (nextKey === '\n') nextKey = 'ENTER';
       if (nextKey === '.') nextKey = 'PERIOD';
-      hintFrame.src = `https://nyiyui.ca/render#key-${nextKey.toUpperCase()}`;
+      hintFrame.src = `/render.html#key-${nextKey.toUpperCase()}`;
+      //hintFrame.src = `https://nyiyui.ca/render#key-${nextKey.toUpperCase()}`;
     }
   }
 
