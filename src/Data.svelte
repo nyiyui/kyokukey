@@ -111,13 +111,6 @@
       {(lastChange - elapsed)/1000} s
     </strong>
   </p>
-  <p>session ID: <code>{currentUUID}</code></p>
-  <p>
-    last change: {Date.now() - lastChange} ms
-  </p>
-  <p>
-    elapsed: {lastChange - elapsed} ms
-  </p>
   <p>
     characters/min: {(text.length / (Date.now() - elapsed)) * 1000 * 60}
   </p>
@@ -126,7 +119,6 @@
       1000 *
       60}
   </p>
-  <p>Error rate: {(errCount / text.length) * 100}%</p>
   <details>
     <summary>JSON</summary>
     <code>{JSON.stringify(data, null, 2)}</code>
