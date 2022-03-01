@@ -52,7 +52,7 @@
     const timeoutId = setTimeout(() => controller.abort(), timeout);
     const name = `${currentUUID}_${targetIndex}`;
     try {
-      const res = await fetch(`https://kiki.nyiyui.ca/submit.php?name=${name}`, {
+      const res = await fetch(`https://kiki.nyiyui.ca/w/submit.php?name=${name}`, {
         method: "POST",
         mode: "no-cors",
         headers: {
