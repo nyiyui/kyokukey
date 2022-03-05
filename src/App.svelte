@@ -14,7 +14,13 @@
   let currentUUID: string = uuidv4();
   let sessionName: string = "";
 
-  $: target = phrases[targetIndex].toLowerCase();
+  $: {
+    if (targetIndex == -1) {
+      target = "hello";
+    } else {
+      target = phrases[targetIndex].toLowerCase();
+    }
+  }
 
   let hintFrame: HTMLIFrameElement;
   const dmp = new diff_match_path();
