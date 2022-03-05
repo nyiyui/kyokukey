@@ -16,7 +16,7 @@
 
   $: {
     if (targetIndex == -1) {
-      target = "hello";
+      target = "hi";
     } else {
       target = phrases[targetIndex].toLowerCase();
     }
