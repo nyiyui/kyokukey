@@ -46,15 +46,17 @@
   let status: Status = Status.PENDING;
 
   async function send() {
+    if (sessionName === "") {
+      status = Status.ERROR;
+      alert("Please enter a session name");
+    }
     status = Status.SENDING;
     const controller = new AbortController();
     const timeout = 5000;
     const timeoutId = setTimeout(() => controller.abort(), timeout);
-    const name = `${currentUUID}_${targetIndex}`;
     try {
-      const res = await fetch(`https://kiki.nyiyui.ca/w/submit.php?name=${name}`, {
+      const res = await fetch(`https://kiki2.nyiyui.ca/w/submit.php`, {
         method: "POST",
-        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
         },
@@ -68,8 +70,10 @@
       if (res.status !== 200 && res.status !== 0) {
         throw new Error(`${res.status} ${res.statusText} ${res.body}`);
       }
+      console.log(res.status, res);
       status = Status.SENT;
       sentText = text;
+      console.log(`response from submit: ${res.status} ${res.statusText} ${await res.text()}`);
     } catch (err) {
       status = Status.ERROR;
       console.log(`error while sending data to kiki: ${err}`);
