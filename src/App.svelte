@@ -70,6 +70,7 @@
     elapsed = Date.now();
     first = true;
     errCount = 0;
+    currentUUID = uuidv4();
   }
 </script>
 
