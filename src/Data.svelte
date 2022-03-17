@@ -1,8 +1,8 @@
 <script lang="ts">
   export let first: boolean;
-  export let start: number;
+  export let lastReset: number;
   export let lastChange: number;
-  export let elapsed: number;
+  export let firstChange: number;
   export let text: string;
   export let target: string;
   export let targetIndex: number;
@@ -11,10 +11,10 @@
   export let sessionName: string;
   let data = {
     first,
-    start,
+    lastReset,
     lastChange,
-    elapsed,
-    duration: lastChange - elapsed,
+    firstChange,
+    duration: lastChange - firstChange,
     text,
     target,
     targetIndex,
@@ -24,10 +24,12 @@
   };
   $: data = {
     first,
-    start,
+    lastReset,
+    start: lastReset,
     lastChange,
-    elapsed,
-    duration: lastChange - elapsed,
+    elapsed: firstChange,
+    firstChange,
+    duration: lastChange - firstChange,
     text,
     target,
     targetIndex,
@@ -114,14 +116,14 @@
   <p>
     Elapsed (since last key press):
     <strong class="time">
-      {(lastChange - elapsed)/1000} s
+      {(lastChange - firstChange)/1000} s
     </strong>
   </p>
   <p>
-    characters/min: {(text.length / (Date.now() - elapsed)) * 1000 * 60}
+    characters/min: {(text.length / (Date.now() - firstChange)) * 1000 * 60}
   </p>
   <p>
-    words/min {(text.trim().split(/\s+/).length / (Date.now() - elapsed)) *
+    words/min {(text.trim().split(/\s+/).length / (Date.now() - firstChange)) *
       1000 *
       60}
   </p>

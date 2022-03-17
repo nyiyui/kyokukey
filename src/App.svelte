@@ -25,15 +25,15 @@
   let hintFrame: HTMLIFrameElement;
   const dmp = new diff_match_path();
   const now = Date.now();
-  let start = now;
-  let elapsed = now;
+  let lastReset = now;
+  let firstChange = now;
   let lastChange = now;
   let first: boolean = true;
   let nextKey: string;
   $: {
     if (text !== undefined && result !== undefined) {
       if (first && text.length !== 0) {
-        elapsed = Date.now();
+        firstChange = Date.now();
         first = false;
       }
       lastChange = Date.now();
@@ -65,9 +65,9 @@
   function reset() {
     text = "";
     textarea.focus();
-    start = Date.now();
+    lastReset = Date.now();
     lastChange = Date.now();
-    elapsed = Date.now();
+    firstChange = Date.now();
     first = true;
     errCount = 0;
     currentUUID = uuidv4();
@@ -111,9 +111,9 @@
     <div class="w3-half">
       <Data
         bind:first
-        bind:start
+        bind:lastReset
         bind:lastChange
-        bind:elapsed
+        bind:firstChange
         bind:text
         bind:target
         bind:targetIndex
