@@ -96,7 +96,6 @@
 </script>
 
 <section>
-  <h2>Data</h2>
   <p>
     Status:
     <!-- TODO: fix this bodge soon -->

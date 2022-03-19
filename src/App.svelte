@@ -89,19 +89,16 @@
   </h1>
   <div class="w3-container">
     <section>
-      <h2>Input</h2>
       <textarea id="input" bind:this={textarea} bind:value={text} />
       <div id="result" bind:this={result} />
       <span id="target">{target}</span>
     </section>
     <section>
-      <h2>Hint</h2>
       Next key: {nextKey}
       <iframe title="hint" bind:this={hintFrame} />
     </section>
     <div class="w3-half">
       <section>
-        <h2>Settings</h2>
         <input type="button" value="Reset" on:click={reset} />
         <label for="target">Phrase Number:</label>
         <input type="number" id="target" bind:value={targetIndex} />
