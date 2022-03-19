@@ -75,7 +75,7 @@
 </script>
 
 <svelte:head>
-  <title>Kyokukey Test</title>
+  <title>Kyokukey/Yarnkey Test App</title>
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preload" href="favicon.svg" as="image" />
   <link rel="icon" href="favicon.svg" />
@@ -85,7 +85,7 @@
 <main>
   <h1 style="font-size: 1.5em;">
     <img src="favicon.svg" alt="Icon" height="30px" />
-    Kyokukey Test
+    Kyokukey/Yarnkey Test App
   </h1>
   <div class="w3-container">
     <section>
