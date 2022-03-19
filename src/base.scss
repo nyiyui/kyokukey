@@ -21,6 +21,10 @@ textarea#input {
   }
 }
 
+#target {
+  font-size: 2em;
+}
+
 span[role="status"].sent-status {
   @extend .w3-tag;
   @extend .w3-round;
