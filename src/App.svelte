@@ -92,6 +92,7 @@
       <h2>Input</h2>
       <textarea id="input" bind:this={textarea} bind:value={text} />
       <div id="result" bind:this={result} />
+      <span id="target">{target}</span>
     </section>
     <section>
       <h2>Hint</h2>
