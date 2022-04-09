@@ -99,7 +99,7 @@
   <h1 style="font-size: 1.5em;">
     <img src="favicon.svg" alt="Icon" height="30px" />
     Kyokukey/Yarnkey Test App
-    <sub style="font-size: 0.5em;">v2.1</sub>
+    <sub style="font-size: 0.5em;">v2.2</sub>
   </h1>
   <div class="w3-container">
     <section>

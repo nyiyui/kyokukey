@@ -97,9 +97,8 @@
     {:else if status == Status.ERROR}
     <span role="status" class="sent-status error">error!</span>
     {/if}
-    (or,
-    <input type="button" value="manually send current data" on:click={send} />
-    )
+    <br />
+    <input type="button" value="Manually Send" on:click={send} />
   </p>
   <p>
     Elapsed (since last key press):
