@@ -8,13 +8,16 @@
   let text: string = "";
   let textarea: HTMLTextAreaElement;
   let result: HTMLDivElement;
-  let targetIndex = 0;
+  let targetIndex: any = 0;
   let target = phrases[0].toLowerCase();
   let errCount = 0;
   let currentUUID: string = uuidv4();
   let sessionName: string = "";
 
   $: {
+    if (typeof targetIndex !== "number") {
+      targetIndex = 0;
+    }
     if (targetIndex == -1) {
       target = "hi";
     } else {
