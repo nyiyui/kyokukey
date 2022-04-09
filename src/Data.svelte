@@ -7,21 +7,9 @@
   export let target: string;
   export let targetIndex: number;
   export let errCount: number;
-  export let currentUUID: string;
+  export let attemptID: string;
   export let sessionName: string;
-  let data = {
-    first,
-    lastReset,
-    lastChange,
-    firstChange,
-    duration: lastChange - firstChange,
-    text,
-    target,
-    targetIndex,
-    errCount,
-    currentUUID,
-    sessionName,
-  };
+  let data: any;
   $: data = {
     first,
     lastReset,
@@ -34,7 +22,8 @@
     target,
     targetIndex,
     errCount,
-    currentUUID,
+    attemptID,
+    currentUUID: attemptID,
     sessionName,
   };
 
@@ -115,7 +104,7 @@
   <p>
     Elapsed (since last key press):
     <strong class="time">
-      {(lastChange - firstChange)/1000} s
+      {Math.round((lastChange - firstChange)/1000 * 10) / 10} s
     </strong>
   </p>
   <p>

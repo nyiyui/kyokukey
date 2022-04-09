@@ -4,6 +4,8 @@
   import { phrases } from "./hardcoded";
   import diff_match_path from "diff-match-patch";
   import Data from "./Data.svelte";
+  import { sessions } from "./session";
+  import { onMount } from "svelte";
 
   let text: string = "";
   let textarea: HTMLTextAreaElement;
@@ -11,7 +13,7 @@
   let targetIndex: any = 0;
   let target = phrases[0].toLowerCase();
   let errCount = 0;
-  let currentUUID: string = uuidv4();
+  let attemptID: string = uuidv4();
   let sessionName: string = "";
 
   $: {
@@ -33,7 +35,7 @@
   let lastChange = now;
   let first: boolean = true;
   let nextKey: string;
-  $: {
+  function update() {
     if (text !== undefined && result !== undefined) {
       if (first && text.length !== 0) {
         firstChange = Date.now();
@@ -65,6 +67,8 @@
     }
   }
 
+  $: update()
+
   function reset() {
     text = "";
     textarea.focus();
@@ -73,8 +77,12 @@
     firstChange = Date.now();
     first = true;
     errCount = 0;
-    currentUUID = uuidv4();
+    attemptID = uuidv4();
   }
+
+  onMount(() => {
+    setInterval(update, 100);
+  });
 </script>
 
 <svelte:head>
@@ -119,7 +127,7 @@
         bind:target
         bind:targetIndex
         bind:errCount
-        bind:currentUUID
+        bind:attemptID
         bind:sessionName
       />
     </div>
