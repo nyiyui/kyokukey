@@ -35,7 +35,7 @@
   let lastChange = now;
   let first: boolean = true;
   let nextKey: string;
-  function update() {
+  function update(text) {
     if (text !== undefined && result !== undefined) {
       if (first && text.length !== 0) {
         firstChange = Date.now();
@@ -67,7 +67,7 @@
     }
   }
 
-  $: update()
+  $: update(text)
 
   function reset() {
     text = "";
@@ -82,7 +82,7 @@
 
   onMount(() => {
     setInterval(() => {
-      if (!first) update();
+      if (!first) update(text);
     }, 100);
   });
 </script>
