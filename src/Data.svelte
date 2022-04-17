@@ -9,8 +9,10 @@
   export let errCount: number;
   export let attemptID: string;
   export let sessionName: string;
+  const version = 2;
   let data: any;
   $: data = {
+    version,
     first,
     lastReset,
     start: lastReset,
