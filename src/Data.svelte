@@ -2,12 +2,6 @@
   import type { DataVersion2 } from './data';
 
   export let data: DataVersion2;
-  let lastChange = data.lastChange;
-  let firstChange = data.firstChange;
-  let text = data.text;
-  let sessionName = data.sessionName;
-  let target = data.target;
-
   let sentText = "";
 
   enum Status {
@@ -20,7 +14,7 @@
   let status: Status = Status.PENDING;
 
   async function send() {
-    if (sessionName === "") {
+    if (data.sessionName === "") {
       status = Status.ERROR;
       alert("Please enter a session name");
     }
@@ -46,7 +40,7 @@
       }
       console.log(res.status, res);
       status = Status.SENT;
-      sentText = text;
+      sentText = data.text;
       console.log(`response from submit: ${res.status} ${res.statusText} ${await res.text()}`);
     } catch (err) {
       status = Status.ERROR;
@@ -55,12 +49,12 @@
   }
 
   $: {
-    if (text === target || text.length === target.length) {
+    if (data.text === data.target || data.text.length === data.target.length) {
       send();
     }
   }
 
-  $: if (sentText !== text) {
+  $: if (sentText !== data.text) {
     status = Status.PENDING;
   }
 </script>
@@ -84,14 +78,14 @@
   <p>
     Elapsed (since last key press):
     <strong class="time">
-      {Math.round((lastChange - firstChange)/1000 * 10) / 10} s
+      {Math.round((data.lastChange - data.firstChange)/1000 * 10) / 10} s
     </strong>
   </p>
   <p>
-    characters/min: {(text.length / (Date.now() - firstChange)) * 1000 * 60}
+    characters/min: {(data.text.length / (Date.now() - data.firstChange)) * 1000 * 60}
   </p>
   <p>
-    words/min {(text.trim().split(/\s+/).length / (Date.now() - firstChange)) *
+    words/min {(data.text.trim().split(/\s+/).length / (Date.now() - data.firstChange)) *
       1000 *
       60}
   </p>
