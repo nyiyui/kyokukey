@@ -6,6 +6,7 @@
   import Data from "./Data.svelte";
   import { sessions } from "./session";
   import { onMount } from "svelte";
+  import { DataVersion2, Stroke } from './data';
 
   let text: string = "";
   let textarea: HTMLTextAreaElement;
@@ -15,13 +16,35 @@
   let errCount = 0;
   let attemptID: string = uuidv4();
   let sessionName: string = "";
+  let strokes: Array<Stroke> = new Array<Stroke>();
+
+  let data: DataVersion2;
+  $: data = {
+    first,
+    lastReset,
+    start: lastReset,
+    lastChange,
+    elapsed: firstChange,
+    firstChange,
+    duration: lastChange - firstChange,
+    text,
+    target,
+    targetIndex,
+    errCount,
+    attemptID,
+    currentUUID: attemptID,
+    sessionName,
+    strokes,
+  };
 
   $: {
     if (typeof targetIndex !== "number") {
       targetIndex = 0;
     }
-    if (targetIndex == -1) {
+    if (targetIndex === -1) {
       target = "hi";
+    } else if (targetIndex === -2) {
+      target = "abcdefghijklmnopqrstuvwxyz";
     } else {
       target = phrases[targetIndex].toLowerCase();
     }
@@ -35,7 +58,25 @@
   let lastChange = now;
   let first: boolean = true;
   let nextKey: string;
-  function update(text) {
+  let prevText: string;
+  function update(text: string) {
+    if (prevText !== undefined && prevText !== text) {
+      let add: string = "";
+      let rm: string = "";
+      dmp.diff_main(prevText, text).forEach(([n, s]: [number, string]) => {
+        if (n === 1) add += s;
+        if (n === -1) rm += s;
+      })
+      if (add.length > 0 || rm.length > 0) {
+        const stroke = {
+          received: Date.now(),
+          add,
+          rm: rm.length,
+        };
+        strokes.push(stroke);
+      }
+    }
+    prevText = text;
     if (text !== undefined && result !== undefined) {
       if (first && text.length !== 0) {
         firstChange = Date.now();
@@ -51,7 +92,6 @@
         );
         elem.textContent = part[1];
         if (part[0] === -1) {
-	console.log(part);
           errCount += part[1].length;
         }
         if (part[0] === 1) {
@@ -79,12 +119,6 @@
     errCount = 0;
     attemptID = uuidv4();
   }
-
-  onMount(() => {
-    setInterval(() => {
-      if (!first) update(text);
-    }, 100);
-  });
 </script>
 
 <svelte:head>
@@ -122,16 +156,7 @@
     </div>
     <div class="w3-half">
       <Data
-        bind:first
-        bind:lastReset
-        bind:lastChange
-        bind:firstChange
-        bind:text
-        bind:target
-        bind:targetIndex
-        bind:errCount
-        bind:attemptID
-        bind:sessionName
+        bind:data
       />
     </div>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxM1Y2qVInIEgs7LdQPoBoxOA2W2NU70DtKwYAa9fRMLmdvw/viewform">Survey</a>

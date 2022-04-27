@@ -1,33 +1,12 @@
 <script lang="ts">
-  export let first: boolean;
-  export let lastReset: number;
-  export let lastChange: number;
-  export let firstChange: number;
-  export let text: string;
-  export let target: string;
-  export let targetIndex: number;
-  export let errCount: number;
-  export let attemptID: string;
-  export let sessionName: string;
-  const version = 2;
-  let data: any;
-  $: data = {
-    version,
-    first,
-    lastReset,
-    start: lastReset,
-    lastChange,
-    elapsed: firstChange,
-    firstChange,
-    duration: lastChange - firstChange,
-    text,
-    target,
-    targetIndex,
-    errCount,
-    attemptID,
-    currentUUID: attemptID,
-    sessionName,
-  };
+  import type { DataVersion2 } from './data';
+
+  export let data: DataVersion2;
+  let lastChange = data.lastChange;
+  let firstChange = data.firstChange;
+  let text = data.text;
+  let sessionName = data.sessionName;
+  let target = data.target;
 
   let sentText = "";
 
@@ -116,6 +95,7 @@
       1000 *
       60}
   </p>
+  <p>strokes: {data.strokes.length}</p>
   <details>
     <summary>JSON</summary>
     <code>{JSON.stringify(data, null, 2)}</code>
