@@ -1,4 +1,5 @@
 class DataVersion2 {
+	version: number;
 	first: boolean;
 	lastReset: number;
 	lastChange: number;

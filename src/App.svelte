@@ -4,9 +4,7 @@
   import { phrases } from "./hardcoded";
   import diff_match_path from "diff-match-patch";
   import Data from "./Data.svelte";
-  import { sessions } from "./session";
-  import { onMount } from "svelte";
-  import { DataVersion2, Stroke } from './data';
+  import type { DataVersion2, Stroke } from './data';
 
   let text: string = "";
   let textarea: HTMLTextAreaElement;
@@ -20,6 +18,7 @@
 
   let data: DataVersion2;
   $: data = {
+    version: 2,
     first,
     lastReset,
     start: lastReset,
