@@ -13,7 +13,7 @@ class DataVersion2 {
 }
 
 class Stroke {
-	ts: number;
+	received: number;
 	add: string;
 	rm: number;
 
