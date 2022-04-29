@@ -45,6 +45,8 @@
       target = "hi";
     } else if (targetIndex === -2) {
       target = "abcdefghijklmnopqrstuvwxyz";
+    } else if (targetIndex === -3) {
+      target = "aa";
     } else {
       target = phrases[targetIndex].toLowerCase();
     }
